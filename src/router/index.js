@@ -1,27 +1,57 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/circle-echarts',
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/circle-echarts',
+    name: 'ani2',
+    component: () => import('../views/circle-echarts/index.vue')
   },
   {
-    path: '/ani-canvas-point',
-    name: 'ani1',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ani-canvas-point/index.vue')
+    path: '/xlsx-example',
+    name: 'xlsx1',
+    component: () => import('../views/xlsx1/index.vue')
+  },
+  {
+    path: '/svg-example1',
+    name: 'svg1',
+    component: () => import('../views/svg1/index.vue')
+  },
+  {
+    path: '/svg-example2',
+    name: 'svg2',
+    component: () => import('../views/svg2/index.vue')
+  },
+  {
+    path: '/work-message',
+    name: 'message1',
+    component: () => import('../views/work/message/index.vue')
+  },
+  {
+    path: '/work-page2',
+    name: 'show1',
+    component: () => import('../views/work/show1/index.vue')
+  },
+  {
+    path: '/work-page3',
+    name: 'show2',
+    component: () => import('../views/newPage/index.vue')
+  },
+  {
+    path: '/work-page4',
+    name: 'show2',
+    component: () => import('../views/newPage2/index.vue')
+  },
+  {
+    path: '/work-page5',
+    name: 'show3',
+    component: () => import('../views/newPage3/index.vue')
   },
 ]
 
