@@ -1,0 +1,228 @@
+<template>
+  <div class="box">
+    <div class="use-box">
+      <div class="use-box-bg">
+        
+
+       
+
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {}
+  },
+  mounted () {
+    this.fullScreen()
+    let a = {
+      'ATM系统': 'N',
+      '网上银行域': 'E',
+      'IC借记卡系统': 'N',
+      'CFP系统': 'W',
+      '电话银行域': 'E',
+      '金卡系统': 'N',
+      '零售信贷系统': 'W',
+      '联机交易转发平台': 'N',
+      '核心联机交易平台': 'E',
+      'OFEP': 'W',
+      '会计辅助管理系统': 'W',
+      '业务策略管控平台': 'E',
+      '历史检索系统': 'N',
+      '企业数据集成平台': 'N',
+      '银联数据综合前置系统': 'E',
+      '理财卡外包制卡系统': 'W',
+      '数据仓库系统': 'E',
+      '统一报表系统': 'W',
+      '企业CRM系统': 'N'
+    }
+
+    this.dataToArray(a)
+    window.onresize = () => {
+      this.fullScreen()
+    }
+  },
+  methods: {
+    fullScreen () {
+      $('.box').css('transform', `scale(${document.documentElement.clientWidth / 3840},${document.documentElement.clientHeight / 1440})`)
+    },
+    dataToArray (data) {
+      
+    }
+  }
+}
+</script>
+<style lang="less">
+.box {
+  text-align: left;
+  transform-origin: 0 0;
+  width: 3840px;
+  height: 1440px;
+}
+.use-box {
+  font-size: 18px;
+  width: 1500px;
+  box-sizing: border-box;
+  height: 720px;
+
+  margin: 0 auto;
+  color: white;
+}
+.use-box div {
+  box-sizing: border-box;
+}
+
+.use-box-bg {
+  width:  100%;
+  height: 100%;
+  background-image: url(./img/line1.png);
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.deal-server {
+  width:  120px;
+  height: 50px;
+  background-image: url(./img/leftBlue.png);
+  background-size: 100% 100%;
+  overflow: hidden;
+  
+}
+
+.deal-server-item {
+  width:100px;
+  height:60px;
+  font-size:13px;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(255,255,255,1);
+  line-height:20px;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: -5px;
+}
+
+.deal-server-item > div:nth-child(2) {
+  letter-spacing: 2px;
+}
+
+.pos1 {
+  position: absolute;
+  top: 58px;
+  left: 290px;
+}
+
+.pos2 {
+  position: absolute;
+  top: 209px;
+  left: 290px;
+}
+
+.pos3 {
+  position: absolute;
+  top: 58px;
+  left: 500px;
+}
+
+.pos4 {
+  position: absolute;
+  top: 209px;
+  left: 500px;
+}
+
+.pos5 {
+  position: absolute;
+  top: 58px;
+  left: 800px;
+}
+
+.pos6 {
+  position: absolute;
+  top: 209px;
+  left: 800px;
+}
+
+.batch {
+  width:  200px;
+  height: 110px;
+  background-image: url(./img/rightBlue.png);
+  background-size: 100% 100%;
+  overflow: hidden;
+}
+
+.batch-item {
+  width:192px;
+  height:60px;
+  font-size:16px;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(255,255,255,1);
+  line-height:25px;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+.batch-pos1 {
+  position: absolute;
+  top: 34px;
+  left: 1070px;
+}
+.batch-pos2 {
+  position: absolute;
+  top: 210px;
+  left: 1070px;
+}
+.batch-pos3 {
+  position: absolute;
+  top: 518px;
+  left: 504px;
+}
+
+.batch-pos4 {
+  position: absolute;
+  top: 518px;
+  left: 812px;
+}
+
+.layer {
+  width:  205px;
+  height: 40px;
+  background-image: url(./img/layerBlue.png);
+  background-size: 100% 100%;
+  overflow: hidden;
+}
+
+.layer-item {
+  font-size:20px;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(255,255,255,1);
+  line-height:25px;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.layer-pos1 {
+  position: absolute;
+  top: 358px;
+  left: 500px;
+}
+
+.layer-pos2 {
+  position: absolute;
+  top: 358px;
+  left: 1065px;
+}
+
+.layer-pos3 {
+  position: absolute;
+  top: 638px;
+  left: 650px;
+}
+
+</style>
