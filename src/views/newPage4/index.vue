@@ -1,60 +1,68 @@
 <template>
-<!-- 内部节点管关系图-理财图 -->
+  <!-- 内部节点管关系图-理财图 -->
   <div class="box">
     <div class="use-box">
       <div class="use-box-bg">
         <!-- 交易服务器 -->
         <div class="deal">
-          <div class="deal-server pos1">
+          <div class="deal-server pos1 statusChange"
+               data-name='192.168.18.120'>
             <div class="deal-server-item">
               <div>交易服务器TSS2</div>
-              <div>192.168.18.121</div>
+              <div>192.168.18.120</div>
             </div>
           </div>
-          <div class="deal-server pos2">
+          <div class="deal-server pos2 statusChange"
+               data-name='192.168.18.122'>
             <div class="deal-server-item">
               <div>交易服务器TSS2</div>
-              <div>192.168.18.121</div>
+              <div>192.168.18.122</div>
             </div>
           </div>
-          <div class="deal-server pos3">
+          <div class="deal-server pos3 statusChange"
+               data-name='192.168.18.121'>
             <div class="deal-server-item">
               <div>交易服务器TSS4</div>
-              <div>192.168.18.123</div>
+              <div>192.168.18.121</div>
             </div>
           </div>
-          <div class="deal-server pos4">
+          <div class="deal-server pos4 statusChange"
+               data-name='192.168.18.123'>
             <div class="deal-server-item">
               <div>交易服务器TSS4</div>
               <div>192.168.18.123</div>
             </div>
           </div>
           <!-- 管理服务器 -->
-            <div>
-              <div class="deal-server pos5">
-                <div class="deal-server-item">
-                  <div>管理服务器MSS2</div>
-                  <div>192.168.18.119</div>
-                </div>
-              </div>
-              <div class="deal-server pos6">
-                <div class="deal-server-item">
-                  <div>管理服务器MSS1</div>
-                  <div>192.168.18.118</div>
-                </div>  
+          <div>
+            <div class="deal-server pos5 statusChange"
+                 data-name='192.168.18.119'>
+              <div class="deal-server-item">
+                <div>管理服务器MSS2</div>
+                <div>192.168.18.119</div>
               </div>
             </div>
+            <div class="deal-server pos6 statusChange"
+                 data-name='192.168.18.118'>
+              <div class="deal-server-item">
+                <div>管理服务器MSS1</div>
+                <div>192.168.18.118</div>
+              </div>
+            </div>
+          </div>
         </div>
-        
+
         <!-- 批量服务器 -->
         <div class="batch-server">
-          <div class="batch batch-pos1">
+          <div class="batch batch-pos1  statusChange"
+               data-name='192.169.16.10'>
             <div class="batch-item ">
               <div>批量服务器BH01</div>
               <div>192.169.16.10</div>
             </div>
           </div>
-          <div class="batch batch-pos2">
+          <div class="batch batch-pos2 statusChange"
+               data-name='192.169.16.11'>
             <div class="batch-item ">
               <div>批量服务器BH02</div>
               <div>192.169.16.11</div>
@@ -64,13 +72,15 @@
 
         <!-- 数据库主机 -->
         <div class="db-device">
-          <div class="batch batch-pos3">
+          <div class="batch batch-pos3 statusChange"
+               data-name='192.169.16.9'>
             <div class="batch-item ">
               <div>数据库主机</div>
               <div>192.169.16.9</div>
             </div>
           </div>
-          <div class="batch batch-pos4">
+          <div class="batch batch-pos4 statusChange"
+               data-name='192.169.16.8'>
             <div class="batch-item ">
               <div>数据库备机</div>
               <div>192.169.16.8</div>
@@ -109,25 +119,16 @@ export default {
   mounted () {
     this.fullScreen()
     let a = {
-      'ATM系统': 'N',
-      '网上银行域': 'E',
-      'IC借记卡系统': 'N',
-      'CFP系统': 'W',
-      '电话银行域': 'E',
-      '金卡系统': 'N',
-      '零售信贷系统': 'W',
-      '联机交易转发平台': 'N',
-      '核心联机交易平台': 'E',
-      'OFEP': 'W',
-      '会计辅助管理系统': 'W',
-      '业务策略管控平台': 'E',
-      '历史检索系统': 'N',
-      '企业数据集成平台': 'N',
-      '银联数据综合前置系统': 'E',
-      '理财卡外包制卡系统': 'W',
-      '数据仓库系统': 'E',
-      '统一报表系统': 'W',
-      '企业CRM系统': 'N'
+      '192.168.18.120': 'W',
+      '192.168.18.122': 'E',
+      '192.168.18.121': 'E',
+      '192.168.18.123': 'W',
+      '192.168.18.119': 'E',
+      '192.168.18.118': 'W',
+      '192.169.16.10': 'W',
+      '192.169.16.11': 'E',
+      '192.169.16.9': 'E',
+      '192.169.16.8': 'W'
     }
 
     this.dataToArray(a)
@@ -140,7 +141,26 @@ export default {
       $('.box').css('transform', `scale(${document.documentElement.clientWidth / 3840},${document.documentElement.clientHeight / 1440})`)
     },
     dataToArray (data) {
-      
+      let arr2 = document.getElementsByClassName('statusChange')
+      let arrList1 = ['192.168.18.120', '192.168.18.122', '192.168.18.121', '192.168.18.123', '192.168.18.119', '192.168.18.118']
+      let arrList2 = ['192.169.16.10', '192.169.16.11', '192.169.16.8', '192.169.16.9']
+      for (let i = 0; i < arr2.length; i++) {
+        if (data[arr2[i].dataset.name] == 'N') {
+        }
+        else if (data[arr2[i].dataset.name] == 'W') {
+          if (arrList1.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg1-warning')
+          } else if (arrList2.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg2-warning')
+          }
+        } else if (data[arr2[i].dataset.name] == 'E') {
+          if (arrList1.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg1-error')
+          } else if (arrList2.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg2-error')
+          }
+        }
+      }
     }
   }
 }
@@ -166,7 +186,7 @@ export default {
 }
 
 .use-box-bg {
-  width:  100%;
+  width: 100%;
   height: 100%;
   background-image: url(./img/line1.png);
   background-size: 100% 100%;
@@ -174,28 +194,26 @@ export default {
 }
 
 .deal-server {
-  width:  180px;
+  width: 180px;
   height: 70px;
   background-image: url(./img/leftBlue.png);
   background-size: 100% 100%;
   overflow: hidden;
-  
 }
 
 .deal-server-item {
-  width:192px;
-  height:60px;
-  font-size:16px;
-  font-family:Adobe Heiti Std;
-  font-weight:normal;
-  color:rgba(255,255,255,1);
-  line-height:25px;
+  width: 192px;
+  height: 60px;
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
+  line-height: 25px;
   letter-spacing: 3px;
   text-align: center;
   margin-top: 10px;
   margin-left: -5px;
 }
-
 
 .pos1 {
   position: absolute;
@@ -234,7 +252,7 @@ export default {
 }
 
 .batch {
-  width:  200px;
+  width: 200px;
   height: 110px;
   background-image: url(./img/rightBlue.png);
   background-size: 100% 100%;
@@ -242,13 +260,13 @@ export default {
 }
 
 .batch-item {
-  width:192px;
-  height:60px;
-  font-size:16px;
-  font-family:Adobe Heiti Std;
-  font-weight:normal;
-  color:rgba(255,255,255,1);
-  line-height:25px;
+  width: 192px;
+  height: 60px;
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
+  line-height: 25px;
   letter-spacing: 3px;
   text-align: center;
   margin-top: 30px;
@@ -277,7 +295,7 @@ export default {
 }
 
 .layer {
-  width:  205px;
+  width: 205px;
   height: 40px;
   background-image: url(./img/layerBlue.png);
   background-size: 100% 100%;
@@ -285,11 +303,11 @@ export default {
 }
 
 .layer-item {
-  font-size:20px;
-  font-family:Adobe Heiti Std;
-  font-weight:normal;
-  color:rgba(255,255,255,1);
-  line-height:25px;
+  font-size: 20px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
+  line-height: 25px;
   letter-spacing: 3px;
   text-align: center;
   margin-top: 8px;
@@ -312,5 +330,20 @@ export default {
   top: 638px;
   left: 650px;
 }
-
+.bg1-error {
+  background: url(./img/leftRed.png);
+  background-size: 100% 100%;
+}
+.bg1-warning {
+  background: url(./img/leftYellow.png);
+  background-size: 100% 100%;
+}
+.bg2-error {
+  background: url(./img/rightRed.png);
+  background-size: 100% 100%;
+}
+.bg2-warning {
+  background: url(./img/rightYellow.png);
+  background-size: 100% 100%;
+}
 </style>

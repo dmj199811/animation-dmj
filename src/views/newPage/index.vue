@@ -1,5 +1,35 @@
 <template>
   <div>
+    <div class="loop-show-box">
+      <div class="loop-inner-box">
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://juejin.im/timeline"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+        <div class="loop-item">
+          <iframe src="https://www.baidu.com/"></iframe>
+        </div>
+      </div>
+    </div>
+    <!-- <a href="https://www.baidu.com/?a=1&b=2"
+       target="blank">099999</a>
     <div class="disasters-main-box">
       <div class="img-list-out"
            style="margin:200px">
@@ -38,7 +68,7 @@
       </div>
     </div>
     <el-button @click="nextChange">下一个</el-button>
-    <el-button @click="prevChange">上一个</el-button>
+    <el-button @click="prevChange">上一个</el-button> -->
   </div>
 </template>
 <script>
@@ -71,12 +101,32 @@ export default {
 }
 </script>
 <style lang="less">
+.loop-show-box {
+  width: 500px;
+  height: 500px;
+  // overflow: hidden;
+}
+.loop-inner-box {
+  width: 4100px;
+  height: 500px;
+  animation: imgCirculation 20s infinite;
+}
+.loop-item {
+  width: 500px;
+  height: 500px;
+  display: inline-block;
+}
+iframe {
+  width: 500px;
+  height: 500px;
+  border: none;
+}
 .disasters-main-box {
   text-align: left;
 }
 .img-list-out {
   width: 200px;
-  overflow-x: scroll;
+  overflow-x: hidden;
   background: #ededed;
 }
 .img-list-out::-webkit-scrollbar {
@@ -124,43 +174,43 @@ export default {
     margin-left: 0;
   }
   14% {
-    margin-left: -200px;
+    margin-left: -500px;
   }
   26% {
-    margin-left: -200px;
+    margin-left: -500px;
   }
   28% {
-    margin-left: -400px;
+    margin-left: -1000px;
   }
   40% {
-    margin-left: -400px;
+    margin-left: -1000px;
   }
   42% {
-    margin-left: -600px;
+    margin-left: -1500px;
   }
   54% {
-    margin-left: -600px;
+    margin-left: -1500px;
   }
   56% {
-    margin-left: -800px;
+    margin-left: -2000px;
   }
   68% {
-    margin-left: -800px;
+    margin-left: -2000px;
   }
   70% {
-    margin-left: -1000px;
+    margin-left: -2500px;
   }
   82% {
-    margin-left: -1000px;
+    margin-left: -2500px;
   }
   84% {
-    margin-left: -1200px;
+    margin-left: -3000px;
   }
   98% {
-    margin-left: -1200px;
+    margin-left: -3000px;
   }
   100% {
-    margin-left: -1400px;
+    margin-left: -3500px;
   }
 }
 </style>

@@ -1,52 +1,62 @@
 <template>
-<!-- 互联网统一认证系统（身份认证）_8 -->
+  <!-- 互联网统一认证系统（身份认证）_8 -->
   <div class="box">
     <div class="use-box">
       <div class="use-box-top">
         <div class="use-box-top-content">
-          <div class="use-box-top-item web1">
+          <div class="use-box-top-item web1 statusChange"
+               data-name='168.1.44.172'>
             <div>WEBLOGIC应用A</div>
             <div>168.1.44.172</div>
           </div>
-          <div class="use-box-top-item web2">
+          <div class="use-box-top-item web2 statusChange"
+               data-name='168.1.44.173'>
             <div>WEBLOGIC应用B</div>
             <div>168.1.44.173</div>
           </div>
-          <div class="use-box-top-item web3">
+          <div class="use-box-top-item web3 statusChange"
+               data-name='168.1.44.174'>
             <div>WEBLOGIC应用C</div>
             <div>168.1.44.174</div>
           </div>
-          <div class="use-box-top-item web4">
+          <div class="use-box-top-item web4 statusChange"
+               data-name='168.1.44.175'>
             <div>WEBLOGIC应用D</div>
             <div>168.1.44.175</div>
           </div>
-          <div class="use-box-top-item web5">
+          <div class="use-box-top-item web5 statusChange"
+               data-name='168.1.44.106'>
             <div>WEBLOGIC应用E</div>
             <div>168.1.44.106</div>
           </div>
-          <div class="use-box-top-item web6">
+          <div class="use-box-top-item web6 statusChange"
+               data-name='168.1.44.128'>
             <div>WEBLOGIC应用F</div>
             <div>168.1.44.128</div>
           </div>
-          <div class="use-box-top-item web7">
+          <div class="use-box-top-item web7 statusChange"
+               data-name='168.1.44.252'>
             <div>WEBLOGIC应用G</div>
             <div>168.1.44.252</div>
           </div>
-          <div class="use-box-top-item web8">
+          <div class="use-box-top-item web8 statusChange"
+               data-name='168.1.44.253'>
             <div>WEBLOGIC应用H</div>
             <div>168.1.44.253</div>
           </div>
-      
+
         </div>
-                <!-- 数据库主机 -->
+        <!-- 数据库主机 -->
         <div class="db-device">
-          <div class="batch batch-pos1">
+          <div class="batch batch-pos1  statusChange"
+               data-name='192.169.4.195'>
             <div class="batch-item ">
               <div>数据库主机</div>
               <div>192.169.4.195</div>
             </div>
           </div>
-          <div class="batch batch-pos2">
+          <div class="batch batch-pos2 statusChange"
+               data-name='192.168.4.196'>
             <div class="batch-item ">
               <div>数据库备机</div>
               <div>192.168.4.196</div>
@@ -54,7 +64,7 @@
           </div>
         </div>
 
-                <!-- 层 -->
+        <!-- 层 -->
         <div class="layer-all">
           <div class="layer layer-pos1">
             <div class="layer-item">
@@ -71,7 +81,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 <script>
 export default {
@@ -81,25 +91,16 @@ export default {
   mounted () {
     this.fullScreen()
     let a = {
-      'ATM系统': 'N',
-      '网上银行域': 'E',
-      'IC借记卡系统': 'N',
-      'CFP系统': 'W',
-      '电话银行域': 'E',
-      '金卡系统': 'N',
-      '零售信贷系统': 'W',
-      '联机交易转发平台': 'N',
-      '核心联机交易平台': 'E',
-      'OFEP': 'W',
-      '会计辅助管理系统': 'W',
-      '业务策略管控平台': 'E',
-      '历史检索系统': 'N',
-      '企业数据集成平台': 'N',
-      '银联数据综合前置系统': 'E',
-      '理财卡外包制卡系统': 'W',
-      '数据仓库系统': 'E',
-      '统一报表系统': 'W',
-      '企业CRM系统': 'N'
+      '168.1.44.172': 'E',
+      '168.1.44.173': 'E',
+      '168.1.44.174': 'W',
+      '168.1.44.175': 'W',
+      '168.1.44.106': 'E',
+      '168.1.44.128': 'W',
+      '168.1.44.252': 'E',
+      '168.1.44.253': 'W',
+      '192.169.4.195': 'E',
+      '192.168.4.196': 'W',
     }
 
     this.dataToArray(a)
@@ -112,7 +113,26 @@ export default {
       $('.box').css('transform', `scale(${document.documentElement.clientWidth / 3840},${document.documentElement.clientHeight / 1440})`)
     },
     dataToArray (data) {
-      
+      let arr2 = document.getElementsByClassName('statusChange')
+      let arrList1 = ['168.1.44.172', '168.1.44.173', '168.1.44.174', '168.1.44.175', '168.1.44.106', '168.1.44.128', '168.1.44.252', '168.1.44.253']
+      let arrList2 = ['192.169.4.195', '192.168.4.196']
+      for (let i = 0; i < arr2.length; i++) {
+        if (data[arr2[i].dataset.name] == 'N') {
+        }
+        else if (data[arr2[i].dataset.name] == 'W') {
+          if (arrList1.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg1-warning')
+          } else if (arrList2.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg2-warning')
+          }
+        } else if (data[arr2[i].dataset.name] == 'E') {
+          if (arrList1.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg1-error')
+          } else if (arrList2.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg2-error')
+          }
+        }
+      }
     }
   }
 }
@@ -140,28 +160,25 @@ export default {
   box-sizing: border-box;
 }
 .use-box-top {
-
 }
 
 .use-box-top-content {
-
 }
 
 .use-box-top-item {
   width: 203px;
   height: 86px;
-  line-height:25px;
+  line-height: 25px;
   background-image: url(./img/leftBlue.png);
   background-size: 100% 100%;
-  font-size:16px;
+  font-size: 16px;
   letter-spacing: 3px;
-  font-family:Adobe Heiti Std;
-  font-weight:normal;
-  color:rgba(255,255,255,1);
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
   text-align: center;
   padding-top: 20px;
   margin-left: 60px;
-
 }
 
 .use-box-top-content .web1 {
@@ -206,7 +223,7 @@ export default {
 }
 
 .batch {
-  width:  200px;
+  width: 200px;
   height: 110px;
   background-image: url(./img/db-blue.png);
   background-size: 100% 100%;
@@ -214,13 +231,13 @@ export default {
 }
 
 .batch-item {
-  width:192px;
-  height:60px;
-  font-size:16px;
-  font-family:Adobe Heiti Std;
-  font-weight:normal;
-  color:rgba(255,255,255,1);
-  line-height:25px;
+  width: 192px;
+  height: 60px;
+  font-size: 16px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
+  line-height: 25px;
   letter-spacing: 3px;
   text-align: center;
   margin-top: 30px;
@@ -248,13 +265,12 @@ export default {
 
 .layer-item {
   line-height: 24px;
-  font-size:24px;
+  font-size: 24px;
   letter-spacing: 3px;
-  writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
-  writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+  writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+  writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
   margin-left: 15px;
 }
-
 
 .layer-pos1 {
   position: absolute;
@@ -267,5 +283,20 @@ export default {
   top: 515px;
   left: 180px;
 }
-
+.bg1-error {
+  background: url(./img/leftRed.png);
+  background-size: 100% 100%;
+}
+.bg1-warning {
+  background: url(./img/leftYellow.png);
+  background-size: 100% 100%;
+}
+.bg2-error {
+  background: url(./img/db-red.png);
+  background-size: 100% 100%;
+}
+.bg2-warning {
+  background: url(./img/db-yellow.png);
+  background-size: 100% 100%;
+}
 </style>

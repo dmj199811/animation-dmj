@@ -1,41 +1,48 @@
 <template>
-<!-- 企业应用集成平台物理部署图_5 -->
+  <!-- 企业应用集成平台物理部署图_5 -->
   <div class="box">
     <div class="use-box">
       <div class="use-box-top">
         <div class="use-box-top-content">
-          <div class="use-box-top-item web1">
+          <div class="use-box-top-item web1 statusChange"
+               data-name='192.166.130.206'>
             <div>应用服务器1</div>
             <div>192.166.130.206</div>
           </div>
-          <div class="use-box-top-item web2">
+          <div class="use-box-top-item web2 statusChange"
+               data-name='192.166.130.207'>
             <div>应用服务器2</div>
             <div>192.166.130.207</div>
           </div>
-          <div class="use-box-top-item web3">
+          <div class="use-box-top-item web3 statusChange"
+               data-name='192.166.130.208'>
             <div>应用服务器3</div>
             <div>192.166.130.208</div>
           </div>
-          <div class="use-box-top-item web4">
+          <div class="use-box-top-item web4 statusChange"
+               data-name='192.166.130.202'>
             <div>数据库服务器A</div>
             <div>192.166.130.202</div>
           </div>
-          <div class="use-box-top-item web5">
+          <div class="use-box-top-item web5 statusChange"
+               data-name='192.166.130.203'>
             <div>数据库服务器B</div>
             <div>192.166.130.203</div>
           </div>
-          <div class="use-box-top-item web6">
+          <div class="use-box-top-item web6 statusChange"
+               data-name='192.166.130.204'>
             <div>监控主服务器1</div>
             <div>192.166.130.204</div>
           </div>
-          <div class="use-box-top-item web7">
+          <div class="use-box-top-item web7 statusChange"
+               data-name='192.166.130.205'>
             <div>监控主服务器2</div>
             <div>192.166.130.205</div>
           </div>
-      
+
         </div>
 
-                <!-- 层 -->
+        <!-- 层 -->
         <div class="layer-all">
           <div class="layer layer-pos1">
             <div class="layer-item">
@@ -57,7 +64,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 <script>
 export default {
@@ -67,25 +74,13 @@ export default {
   mounted () {
     this.fullScreen()
     let a = {
-      'ATM系统': 'N',
-      '网上银行域': 'E',
-      'IC借记卡系统': 'N',
-      'CFP系统': 'W',
-      '电话银行域': 'E',
-      '金卡系统': 'N',
-      '零售信贷系统': 'W',
-      '联机交易转发平台': 'N',
-      '核心联机交易平台': 'E',
-      'OFEP': 'W',
-      '会计辅助管理系统': 'W',
-      '业务策略管控平台': 'E',
-      '历史检索系统': 'N',
-      '企业数据集成平台': 'N',
-      '银联数据综合前置系统': 'E',
-      '理财卡外包制卡系统': 'W',
-      '数据仓库系统': 'E',
-      '统一报表系统': 'W',
-      '企业CRM系统': 'N'
+      '192.166.130.202': 'W',
+      '192.166.130.203': 'E',
+      '192.166.130.204': 'E',
+      '192.166.130.205': 'W',
+      '192.166.130.206': 'E',
+      '192.166.130.207': 'W',
+      '192.166.130.208': 'W',
     }
 
     this.dataToArray(a)
@@ -98,7 +93,21 @@ export default {
       $('.box').css('transform', `scale(${document.documentElement.clientWidth / 3840},${document.documentElement.clientHeight / 1440})`)
     },
     dataToArray (data) {
-      
+      let arr2 = document.getElementsByClassName('statusChange')
+      let arrList1 = ['192.166.130.202', '192.166.130.203', '192.166.130.204', '192.166.130.205', '192.166.130.206', '192.166.130.207', '192.166.130.208']
+      for (let i = 0; i < arr2.length; i++) {
+        if (data[arr2[i].dataset.name] == 'N') {
+        }
+        else if (data[arr2[i].dataset.name] == 'W') {
+          if (arrList1.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg1-warning')
+          }
+        } else if (data[arr2[i].dataset.name] == 'E') {
+          if (arrList1.indexOf(arr2[i].dataset.name) > -1) {
+            arr2[i].classList.add('bg1-error')
+          }
+        }
+      }
     }
   }
 }
@@ -126,28 +135,25 @@ export default {
   box-sizing: border-box;
 }
 .use-box-top {
-
 }
 
 .use-box-top-content {
-
 }
 
 .use-box-top-item {
   width: 203px;
   height: 95px;
-  line-height:25px;
+  line-height: 25px;
   background-image: url(./img/leftBlue.png);
   background-size: 100% 100%;
-  font-size:16px;
+  font-size: 16px;
   letter-spacing: 3px;
-  font-family:Adobe Heiti Std;
-  font-weight:normal;
-  color:rgba(255,255,255,1);
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
   text-align: center;
   padding-top: 20px;
   margin-left: 60px;
-
 }
 
 .use-box-top-content .web1 {
@@ -196,13 +202,12 @@ export default {
 
 .layer-item {
   line-height: 24px;
-  font-size:24px;
+  font-size: 24px;
   letter-spacing: 3px;
-  writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
-  writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+  writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+  writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
   margin-left: 15px;
 }
-
 
 .layer-pos1 {
   position: absolute;
@@ -219,5 +224,20 @@ export default {
   top: 410px;
   left: 1300px;
 }
-
+.bg1-error {
+  background: url(./img/leftRed.png);
+  background-size: 100% 100%;
+}
+.bg1-warning {
+  background: url(./img/leftYellow.png);
+  background-size: 100% 100%;
+}
+.bg2-error {
+  background: url(./img/db-red.png);
+  background-size: 100% 100%;
+}
+.bg2-warning {
+  background: url(./img/db-yellow.png);
+  background-size: 100% 100%;
+}
 </style>
