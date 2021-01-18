@@ -36,9 +36,10 @@
       <router-link to="/displayBoard">展板页面</router-link>|
       <router-link to="/trobuleConfiguration">故障配置页面</router-link>|
       <router-link to="/excel-deal">excel解析配置页面</router-link>|
-      <router-link to="/internetMoneyNew">网金屏新版</router-link>
+      <router-link to="/internetMoneyNew">网金屏新版</router-link>|
+      <router-link to="/userGroup">用户组配置</router-link>|
+      <router-link to="/tuopu">用户组配置</router-link>
     </div>
-
     <router-view />
   </div>
 </template>
@@ -49,11 +50,10 @@ export default {
       status1: true
     }
   },
+  mounted () {
+  },
   methods: {
-    test () {
-      console.log(this.$store.state.pageShow, "---");
-      this.status1 = !this.status1
-    }
+
   }
 }
 </script>

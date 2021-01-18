@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import globalData from '../usedate'
 
 Vue.use(VueRouter)
 
@@ -166,10 +167,22 @@ const routes = [
     path: '/internetMoneyNew',
     component: () => import('../views/internetMoneyNew/index.vue')
   },
+  {
+    path: '/userGroup',
+    component: () => import('../views/userGroup/index.vue')
+  },
+  {
+    path: '/tuopu',
+    component: () => import('../views/tuopu/index.vue')
+  }
 ]
 
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  console.log(globalData.vm, '+++++')
+  globalData.vm.$el && globalData.vm.$store.dispatch('changePageShow', { pageShow: true })
+  next()
+})
 export default router
