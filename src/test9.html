@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>曲线运动</title>
+</head>
+
+
+<body>
+  <canvas id="canvas" width="800" height="800" />
+</body>
+<script>
+  window.onload = function () {
+    console.log(123412)
+
+    init()
+  }
+  //box 
+  var box_x = 0;
+  var box_y = 0;
+  var box_width = 500;
+  var box_height = 500;
+  //ball 
+  var ball_x = 10;
+  var ball_y = 10;
+  var ball_radius = 10;
+  var ball_vx = 10;
+  var ball_vy = 0;
+  //constant 
+  var g = 10;//note 
+  var rate = 0.9;
+  //bound 
+  var bound_left = box_x + ball_radius;
+  var bound_right = box_x + box_width - ball_radius;
+  var bound_top = box_y + ball_radius;
+  var bound_bottom = box_y + box_height - ball_radius;
+  //context 
+  var ctx;
+  function init() {
+    console.log(1234)
+    ctx = document.getElementById('canvas').getContext('2d');
+    //
+    ctx.lineWidth = ball_radius;
+    //设置球的颜色
+    ctx.fillStyle = "rgb(200,0,50)";
+    move_ball();
+    setInterval(move_ball, 100);
+
+  }
+
+  function move_ball() {
+    //清除画布上的矩形区域
+    ctx.clearRect(box_x, box_y, box_width, box_height);
+    move_and_check();
+    //开始曲线路径
+    ctx.beginPath();
+    //绘制圆球
+    ctx.arc(ball_x, ball_y, ball_radius, 0, Math.PI * 2, true);
+    //fillstyle填充
+    ctx.fill();
+    //绘制指定矩形
+    ctx.strokeRect(box_x, box_y, box_width, box_height);
+
+  }
+
+  function move_and_check() {
+    var cur_ball_x = ball_x + ball_vx;
+    var temp = ball_vy;
+    ball_vy = ball_vy + g;
+    var cur_ball_y = ball_y + ball_vy + g / 2;
+    if (cur_ball_x < bound_left) {
+      cur_ball_x = bound_left;
+      ball_vx = -ball_vx * 0.9;
+      ball_vy = ball_vy * 0.9;
+
+    }
+    if (cur_ball_x > bound_right) {
+      cur_ball_x = bound_right;
+      ball_vx = -ball_vx * 0.9;
+      ball_vy = ball_vy * 0.9;
+
+    }
+    if (cur_ball_y < bound_top) {
+      cur_ball_y = bound_top;
+      ball_vy = -ball_vy * 0.9;
+      ball_vx = ball_vx * 0.9;
+
+    }
+    if (cur_ball_y > bound_bottom) {
+      cur_ball_y = bound_bottom;
+      ball_vy = -ball_vy * 0.9;
+      ball_vx = ball_vx * 0.9;
+
+    }
+    ball_x = cur_ball_x;
+    ball_y = cur_ball_y;
+
+  }
+</script>
+
+</html>

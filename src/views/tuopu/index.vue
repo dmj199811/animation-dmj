@@ -23,12 +23,13 @@
               data-num="1">物理部署图</span>
         <div>
           <el-button @click="console_visible = true">导出</el-button>
+          <el-button @click="reOrder">重新命名</el-button>
           <el-button @click="
               showIngBack.children.find(
                 (item) => item.name == '接入分发层'
               ).status = 'E'
             ">status_test</el-button>
-          <el-button @click="down_children">下载</el-button>
+          <el-button @click="download">下载</el-button>
           <el-button @click="style_list_visible = !style_list_visible">
             style_list_visible</el-button>
           <el-select v-model="target"
@@ -55,7 +56,7 @@
           "
              alt="" />
         <div v-for="(item, index) in showIngBack.children"
-             :key="item.name"
+             :key="item.name + item.left+item.top"
              :name="item.name"
              :tabindex="index"
              class="name_box"
@@ -78,7 +79,6 @@
               : 'url(img/tuopu/' + item.status + item.type + '.png)',
             ...showIngBack.style_list[item.style],
           }">
-
           <div class="text_top"
                v-show="item.text_top != ''">
             {{ item.text_top }}
@@ -90,13 +90,13 @@
           <div class="flex_1"
                v-show="item.text_right != ''"></div>
           <div>
-            {{ item.name }}
+            {{ item.name | removeWhy }}
           </div>
         </div>
       </div>
     </div>
     <el-card :style="{
-        position: 'absolute',
+        position: 'fixed',
         right: '10px',
         bottom: '20px',
         transform: form_scale,
@@ -129,7 +129,7 @@
       </el-form>
     </el-card>
     <el-card :style="{
-        position: 'absolute',
+        position: 'fixed',
         left: '10px',
         bottom: '110px',
         transform: form_scale,
@@ -141,7 +141,14 @@
              v-show="style_list_visible">
       <el-table :data="showIngBack.style_list"
                 size="mini"
-                :height="400">
+                :height="400"
+                :row-class-name="
+          ({ row, rowIndex }) => {
+            return rowIndex == form.style ? 'chose_style' : '';
+          }
+        ">
+        <el-table-column type="index"
+                         width="20"> </el-table-column>
         <el-table-column v-for="item in style_table_config"
                          :key="item"
                          :label="item">
@@ -173,17 +180,24 @@
 </template>
 
 <script>
-// const componentsContext = require.context("./img", false, /.png$/);
-// console.log(componentsContext.keys())
-// const projectImgs = componentsContext.keys().map(componentsContext);
-// console.log(projectImgs);
+const componentsContext = require.context("./img", false, /.png$/);
+
+const projectImgs = componentsContext.keys().map(componentsContext);
+// let file_list = projectImgs.map(item=> {return {item.replace(/\/assets\/img\//,'')} })
+let file_list = {};
+projectImgs.forEach((item) => {
+  file_list[item.replace(/\/assets\/img\//, "").split(".")[0]] = item;
+});
+
+console.log(file_list);
 let webpack = true;
+import { tuopu_config } from './config.js'
 //引入到webpakc中
 export default {
   data () {
     return {
       resData: { "19.20.20.199": "E" },
-      target: "本外币核心业务系统",
+      target: "ebank",
       down: false,
       editing: true,
       webpack: webpack,
@@ -202,322 +216,8 @@ export default {
       style_table_config: [],
       down_to_enter: 0,
       e_box_dis: [0, 0],
-      back_list: [
-        {
-          name: "本外币核心业务系统",
-          line: "line_bwb",
-          style_list: [
-            {
-              width: "690px",
-              height: "82px",
-              "padding-right": "620px",
-              "padding-bottom": "",
-            },
-            { width: "540px", height: "82px", "padding-right": "480px" },
-            { width: "400px", height: "82px", "padding-right": "335px" },
-            { width: "160px", height: "460px", "padding-bottom": "410px" },
-            { height: "64px", width: "130px" },
-          ],
-          children: [
-            {
-              name: "接入分发层",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "0",
-              left: "513",
-              top: "68",
-              style: "0",
-            },
-            {
-              name: "CTSP服务层",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "0",
-              left: "513.00",
-              top: "182.00",
-              style: "0",
-            },
-            {
-              name: "OTIP转发层",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "0",
-              left: "514.00",
-              top: "298.00",
-              style: "1",
-            },
-            {
-              name: "CTMA定时服务层",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "0",
-              left: "514.00",
-              top: "417.00",
-              style: "2",
-            },
-            {
-              name: "192.166.130.23",
-              text_top: "CTIN04",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "1050",
-              top: "77",
-              style: "4",
-            },
-            {
-              name: "数据库层",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "0",
-              left: "520.72",
-              top: "593.40",
-              style: "2",
-            },
-            {
-              name: "192.166.130.22",
-              text_top: "CTIN04",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 900,
-              top: 77,
-              style: "4",
-            },
-            {
-              name: "192.166.130.21",
-              text_top: "CTIN04",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 750,
-              top: 77,
-              style: "4",
-            },
-            {
-              name: "192.166.130.20",
-              text_top: "CTIN04",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 600,
-              top: 77,
-              style: "4",
-            },
-            {
-              name: "192.166.130.24",
-              text_top: "CTSP01",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "600",
-              top: "189",
-              style: "4",
-            },
-            {
-              name: "192.166.130.28",
-              text_top: "OTIP01",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "600",
-              top: "304.60",
-              style: "4",
-            },
-            {
-              name: "192.166.130.31",
-              text_top: "CTLG01",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "600",
-              top: "424.00",
-              style: "4",
-            },
-            {
-              name: "192.166.130.25",
-              text_top: "CTSP02",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "750.00",
-              top: "189.00",
-              style: "4",
-            },
-            {
-              name: "192.166.130.26",
-              text_top: "CTSP03",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 900,
-              top: 189,
-              style: "4",
-            },
-            {
-              name: "192.166.130.27",
-              text_top: "CTSP04",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 1050,
-              top: 189,
-              style: "4",
-            },
-            {
-              name: "192.166.130.29",
-              text_top: "OTIP02",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 753.36,
-              top: 304.6,
-              style: "4",
-            },
-            {
-              name: "192.166.130.30",
-              text_top: "OTIP03",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 903.36,
-              top: 304.6,
-              style: "4",
-            },
-            {
-              name: "192.166.130.32",
-              text_top: "CTSPMA",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "753",
-              top: "424",
-              style: "4",
-            },
-            {
-              name: "192.166.130.16",
-              text_top: "HXDBZJ",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "624",
-              top: "603.60",
-              style: "4",
-            },
-            {
-              name: "192.166.130.17",
-              text_top: "HXDBBJ",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "773",
-              top: "603",
-              style: "4",
-            },
-            {
-              name: "数据处理层",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "0",
-              left: "1313.82",
-              top: "593.40",
-              style: "2",
-            },
-            {
-              name: "192.166.130.19",
-              text_top: "HXSJCL02",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "1571.20",
-              top: "603.60",
-              style: "4",
-            },
-            {
-              name: "192.166.130.18",
-              text_top: "HXSJCL01",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "1426.18",
-              top: "604.00",
-              style: "4",
-            },
-            {
-              name: "文件服务器",
-              text_top: "",
-              text_right: "",
-              status: "B",
-              type: "2",
-              left: "1536.27",
-              top: "33.80",
-              style: "3",
-            },
-            {
-              name: "192.166.130.37",
-              text_top: "OFEPZJ",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: "1554",
-              top: "88.80",
-              style: "4",
-            },
-            {
-              name: "192.166.130.38",
-              text_top: "OFEPBJ",
-              text_right: "",
-              status: "N",
-              type: "0",
-              left: 1554,
-              top: "164",
-              style: "4",
-            },
-          ],
-        },
-        {
-          name: "填充测试",
-          line: "line_bwb",
-          style_list: [
-            { height: "64px", width: "130px" },
-            {
-              width: "690px",
-              height: "82px",
-              "padding-right": "620px",
-              "padding-bottom": "",
-            },
-            { width: "540px", height: "82px", "padding-right": "480px" },
-            { width: "400px", height: "82px", "padding-right": "335px" },
-            { width: "160px", height: "460px", "padding-bottom": "410px" },
-          ],
-          children: [
-            { name: "1" },
-            { name: "2" },
-            { name: "3" },
-            { name: "4" },
-            { name: "5" },
-            { name: "6" },
-            { name: "7" },
-            { name: "8" },
-            { name: "9" },
-            { name: "11", text_top: "text_top" },
-            { name: "12", text_top: "text_top" },
-            { name: "13", text_top: "text_top" },
-            { name: "14", text_top: "text_top" },
-            { name: "15", text_top: "text_top" },
-            { name: "16", text_top: "text_top" },
-            { name: "17", text_top: "text_top" },
-            { name: "18", text_top: "text_top" },
-            { name: "19", text_top: "text_top" },
-          ],
-        },
-      ],
+      back_list: tuopu_config,
+      chosen_form: "",
       showIngBack: {
         style_list: [],
       },
@@ -535,10 +235,11 @@ export default {
   mounted () {
     this.changeShowing();
     this.$nextTick(() => {
-      if (this.webpack) {
-        this.$refs.showIngBack_box.style.transform = `scale(${document.documentElement.clientWidth / 3840
-          },${document.documentElement.clientHeight / 1440})`;
-      }
+      // if (this.webpack) {
+      //   this.$refs.showIngBack_box.style.transform = `scale(${
+      //     document.documentElement.clientWidth / 3840
+      //   },${document.documentElement.clientHeight / 1440})`;
+      // }
     });
 
     // Object.keys(this.resData).forEach((item) => {
@@ -552,6 +253,7 @@ export default {
       this.showIngBack = this.back_list.find(
         (item) => item.name == this.target
       );
+      console.log(this.showIngBack)
       this.style_table_config = [];
       this.showIngBack.style_list.forEach((item) => {
         Object.keys(item).forEach((key) => {
@@ -570,7 +272,6 @@ export default {
       let intervalx = 150;
       let intervaly = 100;
       let mx = 1500;
-      console.log(this.showIngBack.children);
       //先加名字后填充,必须有name
       this.showIngBack.children = this.showIngBack.children.map((item) => {
         let x = col * intervalx + startX;
@@ -591,6 +292,21 @@ export default {
         };
         return obj;
       });
+      console.log(JSON.stringify(this.showIngBack), '-----')
+    },
+    whyName (a) {
+      // a.forEach((item, index) => {
+      //   if (item.left < 1077 && !String(item.name).includes("?")) {
+      //     a[index].name = a[index].name + "?福州";
+      //   }
+      // });
+      // a.forEach((item, index) => {
+      //   if (item.left > 1077 && !String(item.name).includes("?")) {
+      //     a[index].name = a[index].name + "?上海";
+      //   }
+      // });
+      // b = a.map(item.name.includes("福州"));
+      // c = a.map(item.name.includes("上海"));
     },
     showIt (box, { x = "", y = "" }) {
       //对于children来说name就是name就是id
@@ -619,7 +335,6 @@ export default {
         obj.top = Number(obj.top) + this.down_to_enter * y;
       }
       this.showIngBack.children.push(obj);
-      console.log(this.showIngBack)
     },
     enter_interval () {
       this.edit_visible = false;
@@ -628,6 +343,13 @@ export default {
           x: this.interval_config.x,
           y: this.interval_config.y,
         });
+      }
+    },
+    reOrder () {
+      let i = 0;
+
+      for (let key in this.showIngBack.children) {
+        this.showIngBack.children[key].name = i++;
       }
     },
     console (x) {
@@ -642,8 +364,8 @@ export default {
         document.documentElement.clientWidth / 3840,
         document.documentElement.clientHeight / 1440,
       ];
-      if (!webpack) {
-        this.form_scale = `scale(${1 / this.scale[0]},${1 / this.scale[1]})`;
+      if (webpack) {
+        this.scale = [1, 1];
       }
 
       this.down = true;
@@ -660,9 +382,9 @@ export default {
         e.clientY - this.out_offset[1] - item.top * this.scale[1],
       ];
     },
-    down_children () {
+    download () {
       const aTag = document.createElement("a");
-      const blob = new Blob([JSON.stringify(this.showIngBack.children)]);
+      const blob = new Blob([JSON.stringify(this.showIngBack)]);
 
       aTag.download = "showIngBackchildren";
       aTag.style = "display: none";
@@ -690,6 +412,32 @@ export default {
         ).toFixed(2);
       }
     },
+    guid () {
+      function S4 () {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+      }
+      return (
+        S4() +
+        S4() +
+        "-" +
+        S4() +
+        "-" +
+        S4() +
+        "-" +
+        S4() +
+        "-" +
+        S4() +
+        S4() +
+        S4()
+      );
+    },
+  },
+  filters: {
+    removeWhy (val) {
+      if (!val) return "";
+
+      return String(val).split("?")[0];
+    },
   },
 };
 </script>
@@ -707,7 +455,6 @@ export default {
   display: flex;
 }
 .check-box span {
-  width: 260px;
   height: 75px;
   line-height: 75px;
 }
@@ -729,6 +476,7 @@ export default {
   width: 1500px;
   height: 720px;
 }
+
 .name_box {
   position: absolute;
   background-size: 100% 100%;
@@ -746,8 +494,7 @@ export default {
 }
 .name_box > div {
   text-align: center;
-  font-size: 16px;
-  line-height: 24px;
+
   cursor: pointer;
 }
 .text_top {
@@ -768,5 +515,16 @@ export default {
   display: inline-block;
   width: 100px;
   height: 50px;
+}
+[name="本外币核心业务系统"] {
+  font-size: 16px;
+  line-height: 18px;
+}
+[name="ebank"] {
+  font-size: 14px;
+  line-height: 16px;
+}
+.el-table .chose_style {
+  background: red;
 }
 </style>

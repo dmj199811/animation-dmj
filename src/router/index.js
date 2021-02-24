@@ -87,10 +87,10 @@ const routes = [
   //   path: '/work-page12',
   //   component: () => import('../views/newPage10/index.vue')
   // },
-  // {
-  //   path: '/work-page13',
-  //   component: () => import('../views/newPage11/index.vue')
-  // },
+  {
+    path: '/work-page13',
+    component: () => import('../views/newPage11/index.vue')
+  },
   // {
   //   path: '/work-page14',
   //   component: () => import('../views/newPage12/index.vue')
@@ -174,6 +174,10 @@ const routes = [
   {
     path: '/tuopu',
     component: () => import('../views/tuopu/index.vue')
+  },
+  {
+    path: '/sysStatus',
+    component: () => import('../views/sysStatus/index.vue')
   }
 ]
 
@@ -181,7 +185,6 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  console.log(globalData.vm, '+++++')
   globalData.vm.$el && globalData.vm.$store.dispatch('changePageShow', { pageShow: true })
   next()
 })
