@@ -1505,7 +1505,7 @@ export default {
           data: data
         }]
       });
-        console.log(data)
+      console.log(data)
       leftBottomGoldCharts2.setOption({
         series: [{
           data: data
@@ -2476,6 +2476,9 @@ export default {
   height: 32px;
   vertical-align: center;
   margin-right: 10px;
+}
+.bottom-box > .bottom-inner {
+  text-align: center;
 }
 .bottom-box > .bottom-inner > div .center-num-box .first-child {
   flex-basis: 320px;

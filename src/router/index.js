@@ -178,6 +178,10 @@ const routes = [
   {
     path: '/sysStatus',
     component: () => import('../views/sysStatus/index.vue')
+  },
+  {
+    path: '/mainPage',
+    component: () => import('../views/mainPage/index.vue')
   }
 ]
 
